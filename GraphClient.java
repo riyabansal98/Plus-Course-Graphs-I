@@ -1,4 +1,4 @@
-package Graphs_2;
+package Graphs_2_4;
 
 public class GraphClient {
 
@@ -19,11 +19,14 @@ public class GraphClient {
 		g.addEdge("E", "B", 5);
 		
 		g.display();
-		System.out.println(g.numEdges());
-		g.removeEdge("A", "B");
-		g.display();
-		g.removeVertex("B");
-		g.display();
+//		System.out.println(g.numEdges());
+//		g.removeEdge("A", "B");
+//		g.display();
+//		g.removeVertex("B");
+//		g.display();
+		
+		//g.depth_first_traversal();
+		g.breadth_first_traversal();
 
 	}
 

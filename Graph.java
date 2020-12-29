@@ -1,7 +1,9 @@
-package Graphs_2;
+package Graphs_2_4;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Stack;
 
 public class Graph {
 
@@ -124,6 +126,116 @@ public class Graph {
 		}
 		
 		System.out.println("-------------------");
+	}
+
+	class Pair{
+		String vname;
+		//psf -> path so far
+		String psf;
+	}
+	public void depth_first_traversal() {
+		
+		//to keep track of processed nodes
+		HashMap<String, Boolean> processed = new HashMap<>();
+		
+		Stack<Pair> stack = new Stack<>();
+		ArrayList<String> keys = new ArrayList<>(vtces.keySet());
+		
+		for(String key: keys) {
+			
+			if(processed.containsKey(key)) {
+				continue;
+			}
+			
+			//create a new pair
+			Pair sp = new Pair();
+			sp.vname = key;
+			sp.psf = key;
+			
+			stack.push(sp);
+			
+			//while stack is not empty, we keep doing work. 
+			
+			while(!stack.isEmpty()) {
+				
+				Pair rp = stack.pop();
+				
+				if(processed.containsKey(rp.vname)) {
+					continue;
+				}
+				
+				processed.put(rp.vname, true);
+				
+				System.out.println(rp.vname + " via " + rp.psf);
+				
+				Vertex rpvtx = vtces.get(rp.vname);
+				
+				ArrayList<String> nbrs = new ArrayList<>(rpvtx.nbrs.keySet());
+			
+				for(String nbr: nbrs) {
+					
+					if(!processed.containsKey(nbr)) {
+						Pair np = new Pair();
+						np.vname = nbr;
+						np.psf = rp.psf + nbr;
+						
+						stack.push(np);
+					}
+				}
+			}
+			
+		}
+	}
+
+	public void breadth_first_traversal() {
+		
+		HashMap<String, Boolean> processed = new HashMap<>();
+		
+		LinkedList<Pair> queue = new LinkedList<>();
+		
+		ArrayList<String> keys = new ArrayList<>(vtces.keySet());
+		
+		for(String key: keys) {
+			
+			if(processed.containsKey(key)) {
+				continue;
+			}
+			
+			Pair sp = new Pair();
+			sp.vname = key;
+			sp.psf =  key;
+			queue.add(sp);
+			
+			while(!queue.isEmpty()) {
+				
+				Pair rp = queue.removeFirst();
+				
+				if(processed.containsKey(rp.vname)) {
+					continue;
+				}
+				
+				processed.put(rp.vname, true);
+				System.out.println(rp.vname + " via " + rp.psf);
+				
+				Vertex rpvtx = vtces.get(rp.vname);
+				ArrayList<String> nbrs = new ArrayList<>(rpvtx.nbrs.keySet());
+				
+				for(String nbr: nbrs) {
+					
+					if(!processed.containsKey(nbr)) {
+						
+						Pair np = new Pair();
+						np.vname = nbr;
+						np.psf = rp.psf + nbr;
+						
+						queue.addLast(np);
+					}
+				}
+			}
+		}
+		
+
+		
 	}
 	
 }
