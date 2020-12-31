@@ -1,9 +1,12 @@
 package Graphs_2_4;
 
+import java.util.Stack;
+
 public class GraphClient {
 
 	public static void main(String[] args) {
 		
+		Stack s = new Stack();
 		Graph g = new Graph();
 		
 		g.addVertex("A");
@@ -26,7 +29,9 @@ public class GraphClient {
 //		g.display();
 		
 		//g.depth_first_traversal();
-		g.breadth_first_traversal();
+		//g.breadth_first_traversal();
+		System.out.println(g.isCyclic());
+		System.out.println(g.isConnected());
 
 	}
 
